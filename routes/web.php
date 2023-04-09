@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\welcomeController;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,7 @@ use App\Http\Controllers\AuthController;
 */
 //買い物リストと購入一覧
 Route::get('/',[AuthController::class,'index']);
+Route::get('/task/list',[TaskController::class,'list']);
 
 
 //テスト用
