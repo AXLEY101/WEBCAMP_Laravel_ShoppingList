@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\welcomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,5 +17,5 @@ use App\Http\Controllers\WelcomeController;
 // Route::get('/', function () {
 //     return view('welcome');
 //  });
-Route::get('/',[\App\Http\Controllers\welcomeController::class, 'index']);
-Route::get('/welcome/second',[\App\Http\Controllers\welcomeController::class,'second']);
+Route::get('/welcome',[welcomeController::class, 'index']);
+Route::get('/welcome/second',[welcomeController::class,'second']);
