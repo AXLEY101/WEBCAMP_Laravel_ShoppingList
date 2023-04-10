@@ -5,6 +5,7 @@ use App\Http\Controllers\welcomeController;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +19,10 @@ use App\Http\Controllers\TaskController;
 //買い物リストと購入一覧
 Route::get('/',[AuthController::class,'index']);
 Route::get('/task/list',[TaskController::class,'list']);
+
+//formテスト用
+Route::get('/test',[TestController::class,'index']);
+Route::post('/test/input',[TestController::class, 'input']);
 
 
 //テスト用
