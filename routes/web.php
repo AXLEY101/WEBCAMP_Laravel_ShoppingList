@@ -19,6 +19,9 @@ use App\Http\Controllers\TestController;
 //買い物リストと購入一覧
 Route::get('/',[AuthController::class,'index']);
 Route::get('/task/list',[TaskController::class,'list']);
+Route::post('/login',[AuthController::class, 'login']);
+
+
 
 //formテスト用
 Route::get('/test',[TestController::class,'index']);
