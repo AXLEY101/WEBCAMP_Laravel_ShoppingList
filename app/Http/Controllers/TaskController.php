@@ -3,6 +3,9 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TaskRegisterPostRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Task as TaskModel;
 
 class TaskController extends Controller
 {
@@ -16,6 +19,36 @@ class TaskController extends Controller
         return view('task.list');
     }
     
-   
-    
+    /*
+    *　買い物リストの登録
+    */
+    public function register(TaskRegisterPostRequest $request){
+        //バリデート済み
+        $datum = $request->validated();
+        // // $user = Auth::user();
+        // $id = Auth::id();
+        
+        // user_id の追加
+        $datum['user_id'] = Auth::id();
+        
+        //var_dump($datum);
+        
+        // テーブルへのINSERT
+        try{
+        $r = TaskModel::create($datum);
+
+        } catch(\Throwable $e){
+            // XXX 本当はログに書く等の処理をする　今回は出力のみ
+            echo $e->getMessage();
+            exit;
+        }
+        
+        //　買い物登録完了
+        $request->session()->flash('front.task_register_success',true);
+        
+        //
+        return redirect('/task/list');
+        
+    }
+
 }

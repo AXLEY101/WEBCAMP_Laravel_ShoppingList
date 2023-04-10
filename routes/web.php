@@ -23,16 +23,16 @@ Route::post('/login',[AuthController::class, 'login']);
 Route::middleware(['auth'])->group(function (){
     Route::get('/task/list',[TaskController::class,'list']);
     Route::get('/logout',[AuthController::class, 'logout']);
-    
+    Route::post('/task/register',[TaskController::class,'register']);
 });
 
 
 
 //formテスト用
-Route::get('/test',[TestController::class,'index']);
-Route::post('/test/input',[TestController::class, 'input']);
+//Route::get('/test',[TestController::class,'index']);
+//Route::post('/test/input',[TestController::class, 'input']);
 
 
 //テスト用
-Route::get('/welcome',[welcomeController::class, 'index']);
-Route::get('/welcome/second',[welcomeController::class,'second']);
+//Route::get('/welcome',[welcomeController::class, 'index']);
+//Route::get('/welcome/second',[welcomeController::class,'second']);

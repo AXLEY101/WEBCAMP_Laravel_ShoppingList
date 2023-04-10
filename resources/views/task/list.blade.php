@@ -5,15 +5,21 @@
 
 {{-- メインコンテンツ --}}
 @section('contets')
-        <h1>タスクの登録(未実装)</h1>
-            <form action="./top.html" method="post">
-                タスク名:<input><br>
-                期限:<input type="date"><br>
-                タスク詳細:<textarea></textarea><br>
-                重要度:<label><input type="radio" name="priority">低い</label> / 
-                    <label><input type="radio" name="priority" checked>普通</label> / 
-                    <label><input type="radio" name="priority">高い</label><br>
-                <button>タスクを登録する</button>
+        <h1>「買うもの」の登録</h1>
+            @if(session('front.task_register_success' == true))
+                買うものを登録しました！！<br>
+            @endif
+            @if ($errors->any())
+                <div>
+                @foreach ($errors->all() as $error)
+                    {{ $error }}<br>
+                @endforeach
+                </div>
+            @endif
+            <form action="/task/register" method="post">
+                @csrf
+                「買うもの」名:<input name="name" value="{{old('name')}}"><br>
+                <button>「買うもの」を登録</button>
             </form>
 
         <h1>タスクの一覧(未実装)</h1>
