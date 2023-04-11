@@ -7,6 +7,8 @@ use App\Http\Requests\TaskRegisterPostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Task as TaskModel;
 
+use Carbon\Carbon;
+
 class TaskController extends Controller
 {
     /**
@@ -16,7 +18,16 @@ class TaskController extends Controller
      */
     public function list()
     {
-        return view('task.list');
+        //一覧の取得
+        $list = TaskModel::where('user_id',Auth::id())
+                            ->orderBy('name','ASC')
+                        //  ->orderBy('create_at','DESC')//購入済みリスト用
+                            ->get();
+                            //ソートはDESCとASCが昇順降順
+    //$sql = TaskModel::where('user_id',Auth::id())->toSql();
+    //echo "<pre>\n"; var_dump($sql,$list);exit;
+        
+        return view('task.list',['list' => $list]);
     }
     
     /*

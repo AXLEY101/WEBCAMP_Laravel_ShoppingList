@@ -22,41 +22,18 @@
                 <button>買うものを登録する</button>
             </form>
 
-        <h1>タスクの一覧(未実装)</h1>
-        <a href="./top.html">CSVダウンロード(未実装)</a><br>
+        <h1>「買うもの」一覧</h1>
         <table border="1">
         <tr>
-            <th>タスク名
-            <th>期限
-            <th>重要度
+            <th>登録日
+            <th>「買うもの」名
+    @foreach($list as $task)
         <tr>
-            <td>HTML formの学習
-            <td>2022/01/01
-            <td>普通
-            <td><a href="./detail.html">詳細閲覧</a>
-            <td><a href="./edit.html">編集</a>
-            <td><form action="./top.html"><button>完了</button></form>
-        <tr>
-            <td>PHPの学習
-            <td>2022/01/15
-            <td>普通
-            <td><a href="./detail.html">詳細閲覧</a>
-            <td><a href="./edit.html">編集</a>
-            <td><form action="./top.html"><button>完了</button></form>
-        <tr>
-            <td>RDBの学習
-            <td>2022/02/01
-            <td>普通
-            <td><a href="./detail.html">詳細閲覧</a>
-            <td><a href="./edit.html">編集</a>
-            <td><form action="./top.html"><button>完了</button></form>
-        <tr>
-            <td>Laravelの学習
-            <td>2022/02/15
-            <td>普通
-            <td><a href="./detail.html">詳細閲覧</a>
-            <td><a href="./edit.html">編集</a>
-            <td><form action="./top.html"><button>完了</button></form>
+            <td>{{\Carbon\Carbon::parse($task->created_at)->format('Y-m-d')}}
+            <td>{{ $task->name}}
+                    
+    @endforeach
+        
         </table>
         <!-- ページネーション -->
         現在 1 ページ目<br>
