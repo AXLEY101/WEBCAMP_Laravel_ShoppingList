@@ -18,11 +18,15 @@ class TaskController extends Controller
      */
     public function list()
     {
+        // 1page当たりの表示アイテム数を設定
+        $per_page = 20;
+        
         //一覧の取得
         $list = TaskModel::where('user_id',Auth::id())
                             ->orderBy('name','ASC')
                         //  ->orderBy('create_at','DESC')//購入済みリスト用
-                            ->get();
+                            ->paginate($per_page);
+                        //  ->get();
                             //ソートはDESCとASCが昇順降順
     //$sql = TaskModel::where('user_id',Auth::id())->toSql();
     //echo "<pre>\n"; var_dump($sql,$list);exit;
