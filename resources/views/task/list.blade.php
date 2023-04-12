@@ -7,8 +7,18 @@
 @section('contets')
         <h1>「買うもの」の登録</h1>
         @if(session('front.task_register_success') == true)
-        買うものを登録しました！！<br>
+            買うものを登録しました！！<br>
         @endif
+        @if(session('front.task_delete_success') == true)
+            買うものを削除しました！！<br>
+        @endif
+        @if (session('front.task_completed_success') == true)
+            完了にしました！！<br>
+        @endif
+        @if (session('front.task_completed_failure') == true)
+            完了に失敗しました....<br>
+        @endif
+        
         @if ($errors->any())
                 <div>
                 @foreach ($errors->all() as $error)
@@ -31,7 +41,17 @@
         <tr>
             <td>{{\Carbon\Carbon::parse($task->created_at)->format('Y-m-d')}}
             <td>{{ $task->name}}
-                    
+            <td><form action="{{ route('complete', ['task_id' => $task->id]) }}" method="post">
+                @csrf
+                <button onclick='return confirm("このタスクを「完了」にします。よろしいですか？");' >完了</button>
+                </form>
+            <td>&emsp;
+            <td><form action="{{ route('delete', ['task_id' => $task->id]) }}" method="post">
+                @csrf
+                @method("DELETE")
+                <button onclick='return confirm("このタスクを削除します(削除したら戻せません)。よろしいですか？");'>削除</button>
+                </form>
+            <td>{{$task->id}}
     @endforeach
         
         </table>

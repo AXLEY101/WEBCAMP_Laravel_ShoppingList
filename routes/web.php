@@ -25,11 +25,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/list', [TaskController::class, 'list']);
         Route::post('/register', [TaskController::class, 'register']);
         //Route::get('/detail/{task_id}',[TaskController::class, 'detail'])->whereNumber('task_id')->name('detail');
+        Route::delete('/delete/{task_id}',[TaskController::class, 'delete'])->whereNumber('task_id')->name('delete');
+        Route::post('/complete/{task_id}',[TaskController::class, 'complete'])->whereNumber('task_id')->name('complete');
     });
-        Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logout', [AuthController::class, 'logout']);
         
 });
-
 
 
 //formテスト用
