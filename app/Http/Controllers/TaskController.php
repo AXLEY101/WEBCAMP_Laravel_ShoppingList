@@ -25,16 +25,28 @@ class TaskController extends Controller
         $per_page = 20;
         
         //一覧の取得
-        $list = TaskModel::where('user_id',Auth::id())
-                            ->orderBy('name','ASC')
-                        //  ->orderBy('create_at','DESC')//購入済みリスト用
+        $list = $this->getListBuilder()
                             ->paginate($per_page);
                         //  ->get();
                             //ソートはDESCとASCが昇順降順
-    //$sql = TaskModel::where('user_id',Auth::id())->toSql();
+    //$sql = $this->getListBuilder()->toSql();
     //echo "<pre>\n"; var_dump($sql,$list);exit;
         
         return view('task.list',['list' => $list]);
+    }
+    
+    /**
+     * 一覧用のIlluminate\Database\Eloquent\Builder インスタンスの取得
+    */
+    protected function getListBuilder(){
+        //
+        return TaskModel::where('user_id',Auth::id())
+                            ->orderBy('name','ASC')
+                        //  ->orderBy('create_at','DESC')//購入済みリスト用
+                        //  ->get()
+                            ;
+                            //ソートはDESCとASCが昇順降順
+        
     }
     
     /*
