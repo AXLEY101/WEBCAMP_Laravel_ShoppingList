@@ -65,5 +65,10 @@ class TaskController extends Controller
         return redirect('/task/list');
         
     }
+    
+    /**
+     * 買い物リストのdeteilは
+     * 
+    */
 
 }
