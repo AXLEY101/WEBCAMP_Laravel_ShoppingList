@@ -18,5 +18,5 @@
             
     @endforeach
         </table>
-        {{$users}}
+
 @endsection
