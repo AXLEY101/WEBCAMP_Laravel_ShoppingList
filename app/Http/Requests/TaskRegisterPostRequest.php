@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rule; //これはpriorityのRule::用に作ってるので消してもよし
 
 class TaskRegisterPostRequest extends FormRequest
 {
