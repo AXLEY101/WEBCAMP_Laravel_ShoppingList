@@ -33,6 +33,7 @@
             </form>
 
         <h1>「買うもの」一覧</h1>
+        <a href="/completed_tasks/list">購入済み「買うもの」一覧</a><br>
         <table border="1">
         <tr>
             <th>登録日
@@ -51,7 +52,6 @@
                 @method("DELETE")
                 <button onclick='return confirm("このタスクを削除します(削除したら戻せません)。よろしいですか？");'>削除</button>
                 </form>
-            <td>{{$task->id}}
     @endforeach
         
         </table>

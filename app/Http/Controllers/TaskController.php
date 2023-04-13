@@ -42,7 +42,7 @@ class TaskController extends Controller
         //
         return TaskModel::where('user_id',Auth::id())
                             ->orderBy('name','ASC')
-                        //  ->orderBy('create_at','DESC')//購入済みリスト用
+                        //  ->orderBy('created_at','DESC')//購入済みリスト用
                         //  ->get()
                             ;
                             //ソートはDESCとASCが昇順降順
