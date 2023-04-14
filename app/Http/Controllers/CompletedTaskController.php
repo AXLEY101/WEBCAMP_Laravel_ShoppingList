@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRegisterPostRequest;  //買い物リスト用の仕様Routeを見て、名前変更必要か確認する事
 use Illuminate\Support\Facades\Auth;
-use App\Models\Task as TaskModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
+use App\Models\ShoppingList as ShoppingListModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\CompletedTask as CompletedTaskModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
+use App\Models\CompletedShoppingList as CompletedShoppingListModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
 
 use Carbon\Carbon;
 
@@ -40,7 +40,7 @@ class CompletedTaskController extends Controller
     */
     protected function getListBuilder(){
         //
-        return CompletedTaskModel::where('user_id',Auth::id())
+        return CompletedShoppingListModel::where('user_id',Auth::id())
                             ->orderBy('name','ASC')
                             ->orderBy('created_at','ASC')
                         //  ->get()

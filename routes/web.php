@@ -1,17 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\welcomeController;
+
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+
+// ShoppingListControllerになる
 use App\Http\Controllers\TaskController;
-use App\Http\Controllers\TestController;
+
+// CompletedShoppingListControllerになる
+use App\Http\Controllers\CompletedTaskController;
+
+
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\CompletedTaskController;
 
-use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,22 +31,59 @@ use App\Http\Controllers\UserController;
 //買い物リストと購入一覧
 Route::get('/',[AuthController::class,'index'])->name('front.index');
 Route::post('/login',[AuthController::class, 'login']);
+
+
+
+// 会員登録
+Route::prefix('/user')->group(function (){
+    Route::get('/register',[UserController::class, 'index'])->name('front.user.register');
+    Route::post('/register',[UserController::class, 'register'])->name('front.user.register.post');
+    
+});
+
+// prefixがtask からshopping_listへ name()の引数も変更のため注意 whereNumber()も
 //認可処理
 Route::middleware(['auth'])->group(function () {
     Route::prefix('/task')->group(function (){
-        Route::get('/list', [TaskController::class, 'list']);
+        Route::get('/list', [TaskController::class, 'list'])->name('front.list');
         Route::post('/register', [TaskController::class, 'register']);
-        //Route::get('/detail/{task_id}',[TaskController::class, 'detail'])->whereNumber('task_id')->name('detail');
+       
         Route::delete('/delete/{task_id}',[TaskController::class, 'delete'])->whereNumber('task_id')->name('delete');
         Route::post('/complete/{task_id}',[TaskController::class, 'complete'])->whereNumber('task_id')->name('complete');
         
     });
+    // 購入済み「買うもの」一覧 completed_tasks/listからcompleted_shopping_list/listへ
     Route::get('/completed_tasks/list',[CompletedTaskController::class, 'list']);
+    // ログアウト　変更なし？
     Route::get('/logout', [AuthController::class, 'logout']);
         
 });
 
 
+//第二手順
+
+// //一時退避場所 task→shoppingへこの４つはprefix('/task')にあったもの
+// Route::get('/task/list', [TaskController::class, 'list'])->name('front.list');
+// Route::post('/task/register', [TaskController::class, 'register']);
+
+// Route::delete('/task/delete/{task_id}',[TaskController::class, 'delete'])->whereNumber('task_id')->name('delete');
+// Route::post('/task/complete/{task_id}',[TaskController::class, 'complete'])->whereNumber('task_id')->name('complete');
+
+// //middleware(['auth'])内にはあるが、prefix外にあったもの二つ prefix使ってないのでurlそのまま
+//   // 購入済み「買うもの」一覧 completed_tasks/listからcompleted_shopping_list/listへ
+// Route::get('/completed_tasks/list',[CompletedTaskController::class, 'list']);
+//   // ログアウト　変更なし？
+// Route::get('/logout', [AuthController::class, 'logout']);
+
+
+
+
+
+
+
+
+
+//対応するテーブルがtasksからshoppingに変わるので変更あり注意
 //管理画面
 Route::prefix('/admin')->group(function (){
    Route::get('',[AdminAuthController::class,'index'])->name('admin.index');
@@ -54,16 +97,4 @@ Route::prefix('/admin')->group(function (){
    Route::get('/logout',[AdminAuthController::class,'logout']);
 });
 
-//ユーザー登録
-Route::get('/user/register',[UserController::class, 'index']);
-Route::post('/user/register',[UserController::class, 'register']);
 
-
-//formテスト用
-//Route::get('/test',[TestController::class,'index']);
-//Route::post('/test/input',[TestController::class, 'input']);
-
-
-//テスト用
-//Route::get('/welcome',[welcomeController::class, 'index']);
-//Route::get('/welcome/second',[welcomeController::class,'second']);

@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskRegisterPostRequest;  //買い物リスト用の仕様Routeを見て、名前変更必要か確認する事
 use Illuminate\Support\Facades\Auth;
-use App\Models\Task as TaskModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
+use App\Models\ShoppingList as ShoppingListModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\CompletedTask as CompletedTaskModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
+use App\Models\CompletedShoppingList as CompletedShoppingListModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
 
 use Carbon\Carbon;
 
@@ -40,7 +40,7 @@ class TaskController extends Controller
     */
     protected function getListBuilder(){
         //
-        return TaskModel::where('user_id',Auth::id())
+        return ShoppingListModel::where('user_id',Auth::id())
                             ->orderBy('name','ASC')
                         //  ->orderBy('created_at','DESC')//購入済みリスト用
                         //  ->get()
@@ -65,7 +65,7 @@ class TaskController extends Controller
         
         // テーブルへのINSERT
         try{
-        $r = TaskModel::create($datum);
+        $r = ShoppingListModel::create($datum);
 
         } catch(\Throwable $e){
             // XXX 本当はログに書く等の処理をする　今回は出力のみ
@@ -92,7 +92,7 @@ class TaskController extends Controller
     protected function getTaskModel($task_id)
     {
         // task_idのレコードを取得する
-        $task = TaskModel::find($task_id);
+        $task = ShoppingListModel::find($task_id);
         if ($task === null) {
             return null;
         }
@@ -146,7 +146,7 @@ class TaskController extends Controller
             // 完了テーブルのcreated_atとupdated_atとの衝突を防ぐため消す
             unset($dask_datum['created_at']);
             unset($dask_datum['updated_at']);
-            $r = CompletedTaskModel::create($dask_datum);
+            $r = CompletedShoppingListModel::create($dask_datum);
             if ($r === null){
                 // insertで失敗してるのでトランザクション終了
                 throw new \Exception('');
