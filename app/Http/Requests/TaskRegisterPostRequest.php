@@ -18,7 +18,7 @@ class TaskRegisterPostRequest extends FormRequest
     {
         return [
             //
-            'name' => ['required','max:128'],
+            'name' => ['required','max:255'],
             
             //買うものリストではいらないので除外
             // 'period' => ['required', 'date', 'after_or_equal:today'],
