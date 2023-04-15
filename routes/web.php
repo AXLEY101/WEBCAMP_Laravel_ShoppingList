@@ -7,11 +7,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 
 // ShoppingListControllerになる
-use App\Http\Controllers\TaskController;
+//use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ShoppingListController;
 
 // CompletedShoppingListControllerになる
-use App\Http\Controllers\CompletedTaskController;
+//use App\Http\Controllers\CompletedTaskController;
 use App\Http\Controllers\CompletedShoppingListController;
 
 
