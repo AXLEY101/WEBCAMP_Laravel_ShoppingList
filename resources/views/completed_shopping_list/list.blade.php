@@ -25,7 +25,7 @@
     @foreach($list as $task)
         <tr>
             <td>{{ $task->name}}
-            <td>{{\Carbon\Carbon::parse($task->created_at)->format('Y-m-d')}}
+            <td>{{\Carbon\Carbon::parse($task->created_at)->format('Y/m/d')}}
             
             
     @endforeach

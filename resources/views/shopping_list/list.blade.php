@@ -40,17 +40,17 @@
             <th>「買うもの」名
     @foreach($list as $task)
         <tr>
-            <td>{{\Carbon\Carbon::parse($task->created_at)->format('Y-m-d')}}
+            <td>{{\Carbon\Carbon::parse($task->created_at)->format('Y/m/d')}}
             <td>{{ $task->name}}
             <td><form action="{{ route('complete', ['shopping_list_id' => $task->id]) }}" method="post">
                 @csrf
-                <button onclick='return confirm("このタスクを「完了」にします。よろしいですか？");' >完了</button>
+                <button onclick='return confirm("この「買うもの」を「完了」にします。よろしいですか？");' >完了</button>
                 </form>
             <td>&emsp;
             <td><form action="{{ route('delete', ['shopping_list_id' => $task->id]) }}" method="post">
                 @csrf
                 @method("DELETE")
-                <button onclick='return confirm("このタスクを削除します(削除したら戻せません)。よろしいですか？");'>削除</button>
+                <button onclick='return confirm("この「買うもの」を削除します。よろしいですか？");'>削除</button>
                 </form>
     @endforeach
         
