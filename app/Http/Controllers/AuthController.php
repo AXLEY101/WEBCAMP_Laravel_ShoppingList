@@ -34,7 +34,7 @@ class AuthController extends Controller
         
         //
         $request->session()->regenerate();//セッション固定攻撃の回避用の一文
-        return redirect()->intended('/task/list');
+        return redirect()->intended('/shopping_list/list');
         
     }
    

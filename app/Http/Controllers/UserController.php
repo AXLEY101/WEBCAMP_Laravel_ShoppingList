@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User as UserModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\CompletedTask as CompletedTaskModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
+use App\Models\CompletedShoppingList as CompletedShoppingListModel;  //モデル呼び出しなのでテーブル切り替え時名前変更必要
 
 use Illuminate\Support\Facades\Hash;
 

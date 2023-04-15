@@ -8,9 +8,11 @@ use App\Http\Controllers\UserController;
 
 // ShoppingListControllerになる
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ShoppingListController;
 
 // CompletedShoppingListControllerになる
 use App\Http\Controllers\CompletedTaskController;
+use App\Http\Controllers\CompletedShoppingListController;
 
 
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
@@ -43,38 +45,36 @@ Route::prefix('/user')->group(function (){
 
 // prefixがtask からshopping_listへ name()の引数も変更のため注意 whereNumber()も
 //認可処理
-Route::middleware(['auth'])->group(function () {
-    Route::prefix('/task')->group(function (){
-        Route::get('/list', [TaskController::class, 'list'])->name('front.list');
-        Route::post('/register', [TaskController::class, 'register']);
+// Route::middleware(['auth'])->group(function () {
+//     Route::prefix('/task')->group(function (){
+//         //Route::get('/list', [TaskController::class, 'list'])->name('front.list');
+//         Route::post('/register', [TaskController::class, 'register']);
        
-        Route::delete('/delete/{task_id}',[TaskController::class, 'delete'])->whereNumber('task_id')->name('delete');
-        Route::post('/complete/{task_id}',[TaskController::class, 'complete'])->whereNumber('task_id')->name('complete');
+//         Route::delete('/delete/{task_id}',[TaskController::class, 'delete'])->whereNumber('task_id')->name('delete');
+//         Route::post('/complete/{task_id}',[TaskController::class, 'complete'])->whereNumber('task_id')->name('complete');
         
+//     });
+//     // 購入済み「買うもの」一覧 completed_tasks/listからcompleted_shopping_list/listへ
+//     Route::get('/completed_tasks/list',[CompletedTaskController::class, 'list']);
+//     // ログアウト　変更なし？
+//     //Route::get('/logout', [AuthController::class, 'logout']);
+        
+//});
+
+//こっちに切り替え
+// 認可処理
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('/shopping_list')->group(function () {
+        Route::get('/list', [ShoppingListController::class, 'list'])->name('front.list');
+        Route::post('/register', [ShoppingListController::class, 'register']);
+        Route::delete('/delete/{shopping_list_id}', [ShoppingListController::class, 'delete'])->whereNumber('shopping_list_id')->name('delete');
+        Route::post('/complete/{shopping_list_id}', [ShoppingListController::class, 'complete'])->whereNumber('shopping_list_id')->name('complete');
     });
-    // 購入済み「買うもの」一覧 completed_tasks/listからcompleted_shopping_list/listへ
-    Route::get('/completed_tasks/list',[CompletedTaskController::class, 'list']);
-    // ログアウト　変更なし？
+    // 購入済み「買うもの」一覧
+    Route::get('/completed_shopping_list/list', [CompletedShoppingListController::class, 'list']);
+    // ログアウト
     Route::get('/logout', [AuthController::class, 'logout']);
-        
 });
-
-
-//第二手順
-
-// //一時退避場所 task→shoppingへこの４つはprefix('/task')にあったもの
-// Route::get('/task/list', [TaskController::class, 'list'])->name('front.list');
-// Route::post('/task/register', [TaskController::class, 'register']);
-
-// Route::delete('/task/delete/{task_id}',[TaskController::class, 'delete'])->whereNumber('task_id')->name('delete');
-// Route::post('/task/complete/{task_id}',[TaskController::class, 'complete'])->whereNumber('task_id')->name('complete');
-
-// //middleware(['auth'])内にはあるが、prefix外にあったもの二つ prefix使ってないのでurlそのまま
-//   // 購入済み「買うもの」一覧 completed_tasks/listからcompleted_shopping_list/listへ
-// Route::get('/completed_tasks/list',[CompletedTaskController::class, 'list']);
-//   // ログアウト　変更なし？
-// Route::get('/logout', [AuthController::class, 'logout']);
-
 
 
 
